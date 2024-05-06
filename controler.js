@@ -13,7 +13,24 @@ exports.tabeldata = function (req, res) {
     "SELECT * FROM tabelmahasiswa",
     function (error, rows, fileds) {
       if (error) {
-        connection.log(error);
+        console.log(error);
+      } else {
+        response.ok(rows, res);
+      }
+    }
+  );
+};
+
+// menampilkan file id
+
+exports.tampilanid = function (req, res) {
+  let id = req.params.id;
+  connection.query(
+    "SELECT * FROM tabelmahasiswa WHERE ID SISWA",
+    id,
+    function (error, rows, fileds) {
+      if (error) {
+        console.log(error);
       } else {
         response.ok(rows, res);
       }
