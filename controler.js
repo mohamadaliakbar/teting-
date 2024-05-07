@@ -21,13 +21,30 @@ exports.tabeldata = function (req, res) {
   );
 };
 
-// menampilkan file id
-
+// menampilkan id siswa
 exports.tampilanid = function (req, res) {
   let id = req.params.id;
   connection.query(
     "SELECT * FROM tabelmahasiswa WHERE ID SISWA",
     id,
+    function (error, rows, fileds) {
+      if (error) {
+        console.log(error);
+      } else {
+        response.ok(rows, res);
+      }
+    }
+  );
+};
+
+// menambahkan tabel mahasiswa
+exports.menambahkansiswa = function (req, res) {
+  var NIM = req.body.NIM;
+  var USERNAME = req.body.USERNAME;
+  var JURUSAN = req.body.JURUSAN;
+  connection.query(
+    "INSERT INTO tabelmahasiswa(NIM, USERNAME, JURUSAN) VALUES(?,?,?)",
+    [NIM, USERNAME, JURUSAN],
     function (error, rows, fileds) {
       if (error) {
         console.log(error);
