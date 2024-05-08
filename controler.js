@@ -24,9 +24,10 @@ exports.tabeldata = function (req, res) {
 // menampilkan id siswa
 exports.tampilanid = function (req, res) {
   let id = req.params.id;
+
   connection.query(
-    "SELECT * FROM tabelmahasiswa WHERE ID SISWA",
-    id,
+    "SELECT * FROM tabelmahasiswa WHERE Id_siswa = ?",
+    [id],
     function (error, rows, fileds) {
       if (error) {
         console.log(error);
@@ -39,17 +40,38 @@ exports.tampilanid = function (req, res) {
 
 // menambahkan tabel mahasiswa
 exports.menambahkansiswa = function (req, res) {
-  var NIM = req.body.NIM;
-  var USERNAME = req.body.USERNAME;
-  var JURUSAN = req.body.JURUSAN;
+  var Nim = req.body.Nim;
+  var Username = req.body.Username;
+  var Jurusan = req.body.Jurusan;
+
   connection.query(
-    "INSERT INTO tabelmahasiswa(NIM, USERNAME, JURUSAN) VALUES(?,?,?)",
-    [NIM, USERNAME, JURUSAN],
+    "INSERT INTO tabelmahasiswa(Nim, Username, Jurusan) VALUES(?,?,?)",
+    [Nim, Username, Jurusan],
     function (error, rows, fileds) {
       if (error) {
         console.log(error);
       } else {
-        response.ok(rows, res);
+        response.ok("Berhasil Menambahkan Data", res);
+      }
+    }
+  );
+};
+
+// mengubah data
+exports.mengubahdata = function (req, res) {
+  var id = req.body.id_siswa;
+  var Nim = req.body.Nim;
+  var Username = req.body.Username;
+  var Jurusan = req.body.Jurusan;
+
+  connection.query(
+    "UPDATE tabelmahasiswa SET Nim?, Username?, Jurusan?, WHERE Id_mahasiswa",
+    [Nim, Username, Jurusan, id],
+    function (error, rows, fileds) {
+      if (error) {
+        console.log(error);
+      } else {
+        response.ok("Berhasil Mengubah Data", res);
       }
     }
   );
